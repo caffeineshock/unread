@@ -120,7 +120,7 @@ module Unread
 
         ReadMark.transaction do
           if unread?(user)
-            rm = read_mark(user) || read_marks.build(:user_id => user.id)
+            rm = read_mark(user) || read_marks_readable.build(:user_id => user.id)
             rm.timestamp = self.send(readable_options[:on])
             rm.save!
           end
@@ -128,7 +128,7 @@ module Unread
       end
 
       def read_mark(user)
-        read_marks.where(:user_id => user.id).first
+        read_marks_readable.where(:user_id => user.id).first
       end
     end
   end
